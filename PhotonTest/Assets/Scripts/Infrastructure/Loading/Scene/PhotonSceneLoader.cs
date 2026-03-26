@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 namespace Infrastructure.Loading.Scene
 {
-    public sealed class PhotonSceneLoader : ISceneLoader
+    public class PhotonSceneLoader : ISceneLoader
     {
         public void Load(string sceneName)
         {

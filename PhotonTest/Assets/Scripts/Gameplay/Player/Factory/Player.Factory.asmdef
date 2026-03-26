@@ -1,8 +1,10 @@
 {
-    "name": "Gameplay",
+    "name": "Player.Factory",
     "rootNamespace": "",
     "references": [
-        "Player"
+        "GUID:700892651a8940945bbe17f6ecb841a9",
+        "GUID:57c32fc907df0f54e8e6e8f0d2488336",
+        "GUID:4e8a97abb4d3a8243af7a4b4d736c0cb"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

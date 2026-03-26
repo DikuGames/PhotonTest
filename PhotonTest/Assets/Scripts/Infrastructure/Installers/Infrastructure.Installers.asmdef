@@ -4,7 +4,10 @@
     "references": [
         "Gameplay.Input",
         "Loading",
-        "Zenject"
+        "Zenject",
+        "Player",
+        "StaticData",
+        "Player.Factory"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

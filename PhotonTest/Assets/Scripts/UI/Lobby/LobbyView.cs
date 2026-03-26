@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace UI.Lobby
 {
-    public sealed class LobbyView : MonoBehaviour
+    public class LobbyView : MonoBehaviour
     {
         public event Action OnConnectClicked;
 

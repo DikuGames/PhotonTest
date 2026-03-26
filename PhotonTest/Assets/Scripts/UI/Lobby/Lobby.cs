@@ -5,7 +5,7 @@ using Zenject;
 
 namespace UI.Lobby
 {
-    public sealed class Lobby : MonoBehaviour
+    public class Lobby : MonoBehaviour
     {
         [SerializeField] private LobbyView _view;
         [SerializeField] private MonoBehaviour _lobbyNetworkSource;

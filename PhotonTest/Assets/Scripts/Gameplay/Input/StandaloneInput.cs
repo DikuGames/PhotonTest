@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Gameplay.Input
 {
-    public sealed class StandaloneInput : IInputService, ITickable
+    public class StandaloneInput : IInputService, ITickable
     {
         private const string HorizontalAxis = "Horizontal";
         private const string VerticalAxis = "Vertical";

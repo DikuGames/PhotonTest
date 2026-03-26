@@ -1,8 +1,10 @@
 {
-    "name": "Gameplay",
+    "name": "Player",
     "rootNamespace": "",
     "references": [
-        "Player"
+        "Gameplay.Input",
+        "PhotonUnityNetworking",
+        "Zenject"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

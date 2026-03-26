@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Networking.Lobby
 {
-    public sealed class PhotonLobbyNetwork : MonoBehaviourPunCallbacks, ILobbyNetwork
+    public class PhotonLobbyNetwork : MonoBehaviourPunCallbacks, ILobbyNetwork
     {
         [SerializeField] private byte _maxPlayersPerRoom = 4;
 

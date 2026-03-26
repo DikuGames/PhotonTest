@@ -1,15 +1,27 @@
 using Gameplay.Input;
+using Gameplay.StaticData;
 using Infrastructure.Loading.Scene;
 using Zenject;
 
 namespace Infrastructure.Installers
 {
-    public sealed class ProjectInstaller : MonoInstaller
+    public class ProjectInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
-            Container.Bind<ISceneLoader>().To<PhotonSceneLoader>().AsSingle();
+            BindServices();
+            BindInput();
+        }
+
+        private void BindInput()
+        {
             Container.BindInterfacesAndSelfTo<StandaloneInput>().AsSingle();
+        }
+
+        private void BindServices()
+        {
+            Container.BindInterfacesAndSelfTo<StaticDataService>().AsSingle();
+            Container.Bind<ISceneLoader>().To<PhotonSceneLoader>().AsSingle();
         }
     }
 }

@@ -1,0 +1,7 @@
+{
+	"name": "Networking",
+	"references": [
+		"PhotonRealtime",
+		"PhotonUnityNetworking"
+	]
+}

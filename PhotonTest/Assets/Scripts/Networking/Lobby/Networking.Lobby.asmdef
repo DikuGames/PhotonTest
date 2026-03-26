@@ -1,0 +1,7 @@
+{
+	"name": "Networking.Lobby",
+	"references": [
+		"PhotonRealtime",
+		"PhotonUnityNetworking"
+	]
+}

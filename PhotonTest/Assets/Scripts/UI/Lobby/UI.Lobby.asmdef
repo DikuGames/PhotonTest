@@ -1,0 +1,9 @@
+{
+	"name": "UI.Lobby",
+	"references": [
+		"Loading",
+		"Networking.Lobby",
+		"zenject",
+		"UnityEngine.UI"
+	]
+}

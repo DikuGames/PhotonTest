@@ -1,0 +1,6 @@
+{
+	"name": "Gameplay.Input",
+	"references": [
+		"zenject"
+	]
+}

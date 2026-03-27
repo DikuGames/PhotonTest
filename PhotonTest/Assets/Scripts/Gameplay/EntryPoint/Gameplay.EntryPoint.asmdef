@@ -1,0 +1,7 @@
+{
+	"name": "Gameplay.EntryPoint",
+	"references": [
+		"Player.Factory",
+		"Zenject"
+	]
+}

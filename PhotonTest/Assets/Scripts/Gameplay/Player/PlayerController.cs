@@ -39,11 +39,16 @@ namespace Gameplay.Player
 
         private void Update()
         {
-            if (_photonView != null && !_photonView.IsMine)
+            if (_playerLook == null || _playerMovement == null)
             {
                 return;
             }
 
+            if (_photonView != null && !_photonView.IsMine)
+            {
+                return;
+            }
+        
             _playerLook.Update();
             _playerMovement.Update();
         }

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Player::Gameplay.Player.PlayerConfig
   <PlayerPrefab>k__BackingField: {fileID: 3148223079979785250, guid: 81780a96c4656124b846896d040bf3d5, type: 3}
   <MoveSpeed>k__BackingField: 5
-  <LookSensitivity>k__BackingField: 180
+  <LookSensitivity>k__BackingField: 200
   <MinPitch>k__BackingField: -80
   <MaxPitch>k__BackingField: 80

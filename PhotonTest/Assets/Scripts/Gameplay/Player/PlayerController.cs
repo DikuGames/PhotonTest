@@ -1,4 +1,6 @@
 using Gameplay.Input;
+using Gameplay.StaticData;
+using Networking.Artifacts;
 using Photon.Pun;
 using UnityEngine;
 using Zenject;
@@ -13,26 +15,34 @@ namespace Gameplay.Player
 
         private PlayerConfig _playerConfig;
         private IInputService _inputService;
+        private IArtifactNetworkService _artifactNetworkService;
         private PlayerMovement _playerMovement;
         private PlayerLook _playerLook;
+        private PlayerInteraction _playerInteraction;
         private PhotonView _photonView;
 
         [Inject]
-        private void Construct(IInputService inputService)
+        public void Construct(
+            IInputService inputService,
+            IStaticDataService staticDataService,
+            IArtifactNetworkService artifactNetworkService)
         {
             _inputService = inputService;
+            _artifactNetworkService = artifactNetworkService;
+            _playerConfig = staticDataService.PlayerConfig;
         }
 
-        public void Initialize(PlayerConfig playerConfig)
+        private void Start()
         {
-            _playerConfig = playerConfig;
             _photonView = GetComponent<PhotonView>();
 
             if (!_photonView.IsMine)
             {
                 _cameraTransform.gameObject.SetActive(false);
+                return;
             }
-            
+
+            _playerInteraction = new PlayerInteraction(_cameraTransform, _inputService, _artifactNetworkService, _playerConfig);
             _playerMovement = new PlayerMovement(_characterController, _inputService, _playerConfig);
             _playerLook = new PlayerLook(transform, _cameraTransform, _inputService, _playerConfig);
         }
@@ -48,9 +58,14 @@ namespace Gameplay.Player
             {
                 return;
             }
-        
+
             _playerLook.Update();
             _playerMovement.Update();
+        }
+
+        private void OnDestroy()
+        {
+            _playerInteraction?.Dispose();
         }
     }
 }

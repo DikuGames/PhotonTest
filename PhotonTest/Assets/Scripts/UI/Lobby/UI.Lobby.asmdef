@@ -1,9 +1,19 @@
 {
-	"name": "UI.Lobby",
-	"references": [
-		"Loading",
-		"Networking.Lobby",
-		"zenject",
-		"UnityEngine.UI"
-	]
+    "name": "UI.Lobby",
+    "rootNamespace": "",
+    "references": [
+        "Loading",
+        "Networking.Lobby",
+        "UnityEngine.UI",
+        "PhotonUnityNetworking"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

@@ -31,7 +31,7 @@ namespace Gameplay.Artifacts
 
         private void Subscribe()
         {
-            foreach (var collectable in _artifactRegistry.Сollectables)
+            foreach (var collectable in _artifactRegistry.Artifacts)
             {
                 collectable.Collected += OnCollected;
             }
@@ -39,7 +39,7 @@ namespace Gameplay.Artifacts
 
         private void Unsubscribe()
         {
-            foreach (var collectable in _artifactRegistry.Сollectables)
+            foreach (var collectable in _artifactRegistry.Artifacts)
             {
                 collectable.Collected -= OnCollected;
             }
@@ -49,7 +49,7 @@ namespace Gameplay.Artifacts
         {
             CollectedCount = 0;
 
-            foreach (var collectable in _artifactRegistry.Сollectables)
+            foreach (var collectable in _artifactRegistry.Artifacts)
             {
                 if (collectable.IsCollected)
                 {

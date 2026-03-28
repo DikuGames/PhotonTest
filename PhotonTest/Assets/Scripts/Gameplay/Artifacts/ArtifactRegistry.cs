@@ -10,8 +10,7 @@ namespace Gameplay.Artifacts
         private readonly Dictionary<int, Artifact> _artifactsById = new();
         private IReadOnlyList<ICollectable> _collectables = new List<ICollectable>();
 
-        public IReadOnlyList<ICollectable> Сollectables => _collectables;
-
+        public IReadOnlyList<ICollectable> Artifacts => _collectables;
         public int TotalCount => _artifactsById.Count;
 
         private void Awake()

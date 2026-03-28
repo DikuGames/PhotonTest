@@ -2,8 +2,12 @@
     "name": "Player",
     "rootNamespace": "",
     "references": [
+        "Gameplay.Artifacts",
         "Gameplay.Input",
+        "Networking.Artifacts",
         "PhotonUnityNetworking",
+        "Player.Configs",
+        "StaticData",
         "Zenject"
     ],
     "includePlatforms": [],

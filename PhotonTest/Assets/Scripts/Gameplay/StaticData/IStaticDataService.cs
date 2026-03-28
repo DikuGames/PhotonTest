@@ -1,4 +1,4 @@
-﻿using Gameplay.Player;
+using Gameplay.Player;
 
 namespace Gameplay.StaticData
 {

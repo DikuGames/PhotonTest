@@ -8,7 +8,8 @@
         "Player",
         "StaticData",
         "Player.Factory",
-        "Gameplay.Artifacts"
+        "Gameplay.Artifacts",
+        "Networking.Artifacts"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

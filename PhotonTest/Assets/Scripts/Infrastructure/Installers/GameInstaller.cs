@@ -1,5 +1,6 @@
 using Gameplay.Artifacts;
 using Gameplay.Player.Factory;
+using Networking.Artifacts;
 using UnityEngine;
 using Zenject;
 
@@ -11,8 +12,21 @@ namespace Infrastructure.Installers
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<ArtifactCollectionService>().AsSingle().WithArguments(_artifactRegistry);
+            BindNetworking();
+            BindServices();
+            
             Container.Bind<IPlayerFactory>().To<PhotonPlayerFactory>().AsSingle();
+        }
+
+        private void BindNetworking()
+        {
+            Container.BindInterfacesAndSelfTo<PhotonArtifactNetworkService>().AsSingle();
+        }
+
+        private void BindServices()
+        {
+            Container.Bind<ArtifactRegistry>().FromInstance(_artifactRegistry).AsSingle();
+            Container.BindInterfacesAndSelfTo<ArtifactCollectionService>().AsSingle();
         }
     }
 }

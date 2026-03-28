@@ -14,6 +14,9 @@ namespace Gameplay.Player
         [field: SerializeField, Min(0f)]
         public float LookSensitivity { get; private set; } = 180f;
 
+        [field: SerializeField, Min(0f)]
+        public float InteractionDistance { get; private set; } = 2f;
+
         [field: SerializeField]
         public float MinPitch { get; private set; } = -80f;
 

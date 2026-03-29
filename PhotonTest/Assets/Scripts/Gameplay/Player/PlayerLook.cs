@@ -31,7 +31,7 @@ namespace Gameplay.Player
                 return;
             }
 
-            var lookInput = _inputService.LookInput.normalized;
+            var lookInput = _inputService.LookInput;
 
             _bodyTransform.Rotate(Vector3.up * (lookInput.x * _playerConfig.LookSensitivity * Time.deltaTime));
 

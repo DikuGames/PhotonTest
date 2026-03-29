@@ -33,19 +33,21 @@ namespace Networking.Artifacts
             PhotonNetwork.RemoveCallbackTarget(this);
         }
 
-        public void ApplyInitialState()
+        public bool ApplyInitialState()
         {
             if (!PhotonNetwork.InRoom || PhotonNetwork.CurrentRoom == null)
             {
-                return;
+                return false;
             }
 
             if (!PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey(CollectedArtifactIdsKey))
             {
                 TryInitializeRoomState();
+                return false;
             }
 
             ApplyCollectedArtifacts(PhotonNetwork.CurrentRoom.CustomProperties);
+            return true;
         }
 
         public void RequestCollect(int artifactId)

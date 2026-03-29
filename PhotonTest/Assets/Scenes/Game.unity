@@ -1026,6 +1026,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Infrastructure.Installers::Infrastructure.Installers.GameInstaller
   _artifactRegistry: {fileID: 537386800}
   _gameHudView: {fileID: 1679841239}
+  _gameEntryPoint: {fileID: 272798999}
 --- !u!1 &1827645700
 GameObject:
   m_ObjectHideFlags: 0

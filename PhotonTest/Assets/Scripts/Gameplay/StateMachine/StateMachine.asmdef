@@ -1,8 +1,15 @@
 {
-    "name": "Gameplay.EntryPoint",
+    "name": "StateMachine",
     "rootNamespace": "",
     "references": [
-        "PhotonUnityNetworking"
+        "Gameplay.EntryPoint",
+        "Gameplay.Match",
+        "Networking.Artifacts",
+        "Networking.Room",
+        "PhotonRealtime",
+        "PhotonUnityNetworking",
+        "Player.Factory",
+        "Zenject"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

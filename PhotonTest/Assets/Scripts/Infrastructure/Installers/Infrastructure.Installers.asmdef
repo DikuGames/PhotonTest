@@ -10,10 +10,12 @@
         "Player.Factory",
         "Gameplay.Artifacts",
         "Gameplay.Camera",
+        "Gameplay.EntryPoint",
         "Gameplay.Match",
         "Networking.Artifacts",
         "Networking.Connection",
         "Networking.Room",
+        "StateMachine",
         "UI.Game"
     ],
     "includePlatforms": [],

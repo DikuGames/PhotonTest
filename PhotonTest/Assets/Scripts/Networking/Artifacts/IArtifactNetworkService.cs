@@ -2,7 +2,7 @@ namespace Networking.Artifacts
 {
     public interface IArtifactNetworkService
     {
-        void ApplyInitialState();
+        bool ApplyInitialState();
         void RequestCollect(int artifactId);
     }
 }

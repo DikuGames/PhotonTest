@@ -1,7 +1,10 @@
 using Gameplay.Artifacts;
 using Gameplay.Camera;
+using Gameplay.EntryPoint;
 using Gameplay.Match;
 using Gameplay.Player.Factory;
+using Gameplay.StateMachine;
+using Gameplay.StateMachine.Factory;
 using Networking.Artifacts;
 using Networking.Room;
 using UI.Game;
@@ -14,12 +17,14 @@ namespace Infrastructure.Installers
     {
         [SerializeField] private ArtifactRegistry _artifactRegistry;
         [SerializeField] private GameHudView _gameHudView;
+        [SerializeField] private GameEntryPoint _gameEntryPoint;
 
         public override void InstallBindings()
         {
             BindNetworking();
             BindServices();
             BindFactories();
+            BindStateMachine();
             BindUi();
         }
 
@@ -32,6 +37,7 @@ namespace Infrastructure.Installers
         private void BindServices()
         {
             Container.Bind<ArtifactRegistry>().FromInstance(_artifactRegistry).AsSingle();
+            Container.Bind<GameEntryPoint>().FromInstance(_gameEntryPoint).AsSingle();
             Container.BindInterfacesAndSelfTo<ArtifactCollectionService>().AsSingle();
             Container.BindInterfacesAndSelfTo<MatchFinishService>().AsSingle().NonLazy();
         }
@@ -40,6 +46,12 @@ namespace Infrastructure.Installers
         {
             Container.Bind<IPlayerFactory>().To<PhotonPlayerFactory>().AsSingle();
             Container.Bind<IPlayerCameraFactory>().To<PlayerCameraFactory>().AsSingle();
+        }
+
+        private void BindStateMachine()
+        {
+            Container.BindInterfacesAndSelfTo<StateFactory>().AsSingle();
+            Container.BindInterfacesAndSelfTo<GameStateMachine>().AsSingle().NonLazy();
         }
 
         private void BindUi()

@@ -26,6 +26,16 @@ namespace UI.Lobby
             }
         }
 
+        public void SetConnectButtonInteractable(bool isInteractable)
+        {
+            if (_connectButton == null)
+            {
+                return;
+            }
+
+            _connectButton.interactable = isInteractable;
+        }
+
         private void ConnectClicked()
         {
             OnConnectClicked?.Invoke();

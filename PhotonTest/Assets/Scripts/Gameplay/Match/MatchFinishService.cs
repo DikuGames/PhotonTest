@@ -1,6 +1,5 @@
 using System;
 using Gameplay.Artifacts;
-using Networking.Room;
 using Zenject;
 
 namespace Gameplay.Match
@@ -8,14 +7,14 @@ namespace Gameplay.Match
     public class MatchFinishService : IInitializable, IDisposable
     {
         private readonly ArtifactCollectionService _artifactCollectionService;
-        private readonly IRoomExitService _roomExitService;
 
         private bool _isMatchFinishing;
 
-        public MatchFinishService(ArtifactCollectionService artifactCollectionService, IRoomExitService roomExitService)
+        public event Action Finished;
+
+        public MatchFinishService(ArtifactCollectionService artifactCollectionService)
         {
             _artifactCollectionService = artifactCollectionService;
-            _roomExitService = roomExitService;
         }
 
         public void Initialize()
@@ -36,7 +35,7 @@ namespace Gameplay.Match
             }
 
             _isMatchFinishing = true;
-            _roomExitService.ExitToLobby();
+            Finished?.Invoke();
         }
     }
 }

@@ -3,7 +3,6 @@
     "rootNamespace": "",
     "references": [
         "Gameplay.Artifacts",
-        "Networking.Room",
         "Zenject"
     ],
     "includePlatforms": [],

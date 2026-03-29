@@ -32,6 +32,7 @@ namespace UI.Lobby
             }
 
             _view.OnConnectClicked += OnConnectClicked;
+            _view.SetConnectButtonInteractable(true);
         }
 
         private void OnDestroy()
@@ -50,6 +51,7 @@ namespace UI.Lobby
             }
 
             _isHandlingConnect = true;
+            _view.SetConnectButtonInteractable(false);
 
             try
             {
@@ -68,6 +70,7 @@ namespace UI.Lobby
             finally
             {
                 _isHandlingConnect = false;
+                _view.SetConnectButtonInteractable(true);
             }
         }
     }

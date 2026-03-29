@@ -1,16 +1,11 @@
 {
-    "name": "Infrastructure.Installers",
+    "name": "Networking.Connection",
     "rootNamespace": "",
     "references": [
-        "Gameplay.Input",
         "Loading",
-        "Zenject",
-        "Player",
-        "StaticData",
-        "Player.Factory",
-        "Gameplay.Artifacts",
-        "Networking.Artifacts",
-        "Networking.Connection"
+        "PhotonRealtime",
+        "PhotonUnityNetworking",
+        "Zenject"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

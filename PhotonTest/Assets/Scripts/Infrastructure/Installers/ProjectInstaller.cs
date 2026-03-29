@@ -1,6 +1,7 @@
 using Gameplay.Input;
 using Gameplay.StaticData;
 using Infrastructure.Loading.Scene;
+using Networking.Connection;
 using Zenject;
 
 namespace Infrastructure.Installers
@@ -22,6 +23,7 @@ namespace Infrastructure.Installers
         {
             Container.BindInterfacesAndSelfTo<StaticDataService>().AsSingle();
             Container.Bind<ISceneLoader>().To<PhotonSceneLoader>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PhotonConnectionRecoveryService>().AsSingle().NonLazy();
         }
     }
 }

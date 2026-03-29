@@ -12,6 +12,7 @@ namespace Gameplay.Player
     {
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private Transform _cameraTransform;
+        [SerializeField] private PlayerDetector _playerDetector;
 
         private PlayerConfig _playerConfig;
         private IInputService _inputService;
@@ -43,6 +44,7 @@ namespace Gameplay.Player
             }
 
             _playerInteraction = new PlayerInteraction(_cameraTransform, _inputService, _artifactNetworkService, _playerConfig);
+            _playerDetector?.Initialize(_inputService, _playerConfig);
             _playerMovement = new PlayerMovement(_characterController, _inputService, _playerConfig);
             _playerLook = new PlayerLook(transform, _cameraTransform, _inputService, _playerConfig);
         }

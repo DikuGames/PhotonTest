@@ -22,5 +22,11 @@ namespace Gameplay.Player
 
         [field: SerializeField]
         public float MaxPitch { get; private set; } = 80f;
+
+        [field: SerializeField]
+        public Color DetectorInactiveColor { get; private set; } = Color.gray;
+
+        [field: SerializeField]
+        public Color DetectorActiveColor { get; private set; } = Color.green;
     }
 }

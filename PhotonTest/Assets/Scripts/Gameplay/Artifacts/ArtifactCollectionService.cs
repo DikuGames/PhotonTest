@@ -1,8 +1,9 @@
 using System;
+using Zenject;
 
 namespace Gameplay.Artifacts
 {
-    public class ArtifactCollectionService : IDisposable
+    public class ArtifactCollectionService : IInitializable, IDisposable
     {
         private readonly ArtifactRegistry _artifactRegistry;
 
@@ -14,6 +15,10 @@ namespace Gameplay.Artifacts
         public ArtifactCollectionService(ArtifactRegistry artifactRegistry)
         {
             _artifactRegistry = artifactRegistry;
+        }
+
+        public void Initialize()
+        {
             Subscribe();
             RefreshProgress();
         }

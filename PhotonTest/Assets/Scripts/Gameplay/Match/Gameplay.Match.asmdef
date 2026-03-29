@@ -1,20 +1,10 @@
 {
-    "name": "Infrastructure.Installers",
+    "name": "Gameplay.Match",
     "rootNamespace": "",
     "references": [
-        "Gameplay.Input",
-        "Loading",
-        "Zenject",
-        "Player",
-        "StaticData",
-        "Player.Factory",
         "Gameplay.Artifacts",
-        "Gameplay.Camera",
-        "Gameplay.Match",
-        "Networking.Artifacts",
-        "Networking.Connection",
         "Networking.Room",
-        "UI.Game"
+        "Zenject"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

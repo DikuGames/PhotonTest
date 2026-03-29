@@ -1,5 +1,6 @@
 using System.Collections;
 using Gameplay.Player.Factory;
+using Networking.Artifacts;
 using Photon.Pun;
 using UnityEngine;
 using Zenject;
@@ -11,12 +12,14 @@ namespace Gameplay.EntryPoint
         [SerializeField] private Transform[] _spawnPoints;
 
         private IPlayerFactory _playerFactory;
+        private IArtifactNetworkService _artifactNetworkService;
         private bool _isInitialized;
 
         [Inject]
-        private void Construct(IPlayerFactory playerFactory)
+        private void Construct(IPlayerFactory playerFactory, IArtifactNetworkService artifactNetworkService)
         {
             _playerFactory = playerFactory;
+            _artifactNetworkService = artifactNetworkService;
         }
 
         private void Start()
@@ -26,15 +29,18 @@ namespace Gameplay.EntryPoint
                 return;
             }
 
-            StartCoroutine(SpawnPlayerWhenReady());
+            StartCoroutine(InitializeGameScene());
         }
 
-        private IEnumerator SpawnPlayerWhenReady()
+        private IEnumerator InitializeGameScene()
         {
-            while (!PhotonNetwork.InRoom || !PhotonNetwork.IsConnectedAndReady)
+            while (!PhotonNetwork.InRoom || !PhotonNetwork.IsConnectedAndReady || PhotonNetwork.CurrentRoom == null)
             {
                 yield return null;
             }
+
+            _artifactNetworkService.ApplyInitialState();
+            yield return null;
 
             if (_isInitialized)
             {

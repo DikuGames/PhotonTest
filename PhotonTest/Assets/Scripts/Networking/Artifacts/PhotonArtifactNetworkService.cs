@@ -1,16 +1,22 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using ExitGames.Client.Photon;
 using Gameplay.Artifacts;
 using Networking.EventCodes;
 using Photon.Pun;
 using Photon.Realtime;
 using Zenject;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace Networking.Artifacts
 {
-    public class PhotonArtifactNetworkService : IArtifactNetworkService, IInitializable, IDisposable, IOnEventCallback
+    public class PhotonArtifactNetworkService : IArtifactNetworkService, IInitializable, IDisposable, IOnEventCallback, IInRoomCallbacks
     {
+        private const string CollectedArtifactIdsKey = "CollectedArtifactIds";
+
         private readonly ArtifactRegistry _artifactRegistry;
+        private HashSet<int> _collectedArtifactIds = new();
 
         public PhotonArtifactNetworkService(ArtifactRegistry artifactRegistry)
         {
@@ -25,6 +31,21 @@ namespace Networking.Artifacts
         public void Dispose()
         {
             PhotonNetwork.RemoveCallbackTarget(this);
+        }
+
+        public void ApplyInitialState()
+        {
+            if (!PhotonNetwork.InRoom || PhotonNetwork.CurrentRoom == null)
+            {
+                return;
+            }
+
+            if (!PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey(CollectedArtifactIdsKey))
+            {
+                TryInitializeRoomState();
+            }
+
+            ApplyCollectedArtifacts(PhotonNetwork.CurrentRoom.CustomProperties);
         }
 
         public void RequestCollect(int artifactId)
@@ -50,36 +71,84 @@ namespace Networking.Artifacts
 
         public void OnEvent(EventData photonEvent)
         {
-            switch (photonEvent.Code)
-            {
-                case NetworkEventCodes.ArtifactCollectRequest:
-                    if (PhotonNetwork.IsMasterClient && photonEvent.CustomData is int requestedArtifactId)
-                    {
-                        ConfirmCollect(requestedArtifactId);
-                    }
-                    break;
-
-                case NetworkEventCodes.ArtifactCollectConfirmed:
-                    if (photonEvent.CustomData is int confirmedArtifactId)
-                    {
-                        TryCollectLocally(confirmedArtifactId);
-                    }
-                    break;
-            }
-        }
-
-        private void ConfirmCollect(int artifactId)
-        {
-            if (!_artifactRegistry.TryGet(artifactId, out var collectable) || collectable.IsCollected)
+            if (photonEvent.Code != NetworkEventCodes.ArtifactCollectRequest)
             {
                 return;
             }
 
-            PhotonNetwork.RaiseEvent(
-                NetworkEventCodes.ArtifactCollectConfirmed,
-                artifactId,
-                new RaiseEventOptions { Receivers = ReceiverGroup.All },
-                SendOptions.SendReliable);
+            if (PhotonNetwork.IsMasterClient && photonEvent.CustomData is int requestedArtifactId)
+            {
+                ConfirmCollect(requestedArtifactId);
+            }
+        }
+
+        public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+        {
+            ApplyCollectedArtifacts(propertiesThatChanged);
+        }
+
+        public void OnPlayerEnteredRoom(Player newPlayer)
+        {
+        }
+
+        public void OnPlayerLeftRoom(Player otherPlayer)
+        {
+        }
+
+        public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+        {
+        }
+
+        public void OnMasterClientSwitched(Player newMasterClient)
+        {
+        }
+
+        private void ConfirmCollect(int artifactId)
+        {
+            if (!_artifactRegistry.TryGet(artifactId, out var collectable) || collectable.IsCollected || _collectedArtifactIds.Contains(artifactId))
+            {
+                return;
+            }
+
+            _collectedArtifactIds.Add(artifactId);
+
+            var roomProperties = new Hashtable
+            {
+                [CollectedArtifactIdsKey] = _collectedArtifactIds.ToArray()
+            };
+
+            PhotonNetwork.CurrentRoom?.SetCustomProperties(roomProperties);
+        }
+
+        private void TryInitializeRoomState()
+        {
+            if (!PhotonNetwork.IsMasterClient || PhotonNetwork.CurrentRoom == null)
+            {
+                return;
+            }
+
+            var roomProperties = new Hashtable
+            {
+                [CollectedArtifactIdsKey] = Array.Empty<int>()
+            };
+
+            PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
+        }
+
+        private void ApplyCollectedArtifacts(Hashtable roomProperties)
+        {
+            if (roomProperties == null || !roomProperties.TryGetValue(CollectedArtifactIdsKey, out var collectedArtifactIdsRaw))
+            {
+                return;
+            }
+
+            var collectedArtifactIds = new HashSet<int>(collectedArtifactIdsRaw as int[] ?? Array.Empty<int>());
+            _collectedArtifactIds = collectedArtifactIds;
+
+            foreach (var artifactId in collectedArtifactIds)
+            {
+                TryCollectLocally(artifactId);
+            }
         }
 
         private void TryCollectLocally(int artifactId)

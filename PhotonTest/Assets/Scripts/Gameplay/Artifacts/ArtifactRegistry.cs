@@ -9,9 +9,25 @@ namespace Gameplay.Artifacts
 
         private readonly Dictionary<int, Artifact> _artifactsById = new();
         private IReadOnlyList<ICollectable> _collectables = new List<ICollectable>();
+        private bool _isInitialized;
 
-        public IReadOnlyList<ICollectable> Artifacts => _collectables;
-        public int TotalCount => _artifactsById.Count;
+        public IReadOnlyList<ICollectable> Artifacts
+        {
+            get
+            {
+                EnsureInitialized();
+                return _collectables;
+            }
+        }
+
+        public int TotalCount
+        {
+            get
+            {
+                EnsureInitialized();
+                return _artifactsById.Count;
+            }
+        }
 
         private void Awake()
         {
@@ -25,6 +41,8 @@ namespace Gameplay.Artifacts
 
         public bool TryGet(int id, out ICollectable collectable)
         {
+            EnsureInitialized();
+
             if (_artifactsById.TryGetValue(id, out var artifact))
             {
                 collectable = artifact;
@@ -35,6 +53,16 @@ namespace Gameplay.Artifacts
             return false;
         }
 
+        private void EnsureInitialized()
+        {
+            if (_isInitialized)
+            {
+                return;
+            }
+
+            BuildRegistry();
+        }
+
         private void BuildRegistry()
         {
             _artifactsById.Clear();
@@ -42,6 +70,7 @@ namespace Gameplay.Artifacts
             if (_artifacts == null)
             {
                 _collectables = new List<ICollectable>();
+                _isInitialized = true;
                 return;
             }
 
@@ -65,6 +94,7 @@ namespace Gameplay.Artifacts
             }
 
             _collectables = collectables;
+            _isInitialized = true;
         }
 
         private void ValidateDuplicateIds()

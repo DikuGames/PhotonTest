@@ -1,12 +1,11 @@
 {
-    "name": "Gameplay.EntryPoint",
+    "name": "Networking.Room",
     "rootNamespace": "",
     "references": [
-        "Player.Factory",
-        "Zenject",
+        "Loading",
+        "PhotonRealtime",
         "PhotonUnityNetworking",
-        "Networking.Artifacts",
-        "PhotonRealtime"
+        "Zenject"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,7 +1,18 @@
 {
-	"name": "Gameplay.EntryPoint",
-	"references": [
-		"Player.Factory",
-		"Zenject"
-	]
+    "name": "Gameplay.EntryPoint",
+    "rootNamespace": "",
+    "references": [
+        "Player.Factory",
+        "Zenject",
+        "PhotonUnityNetworking"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

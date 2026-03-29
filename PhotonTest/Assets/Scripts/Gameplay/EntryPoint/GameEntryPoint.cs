@@ -1,4 +1,6 @@
+using System.Collections;
 using Gameplay.Player.Factory;
+using Photon.Pun;
 using UnityEngine;
 using Zenject;
 
@@ -22,6 +24,21 @@ namespace Gameplay.EntryPoint
             if (_isInitialized)
             {
                 return;
+            }
+
+            StartCoroutine(SpawnPlayerWhenReady());
+        }
+
+        private IEnumerator SpawnPlayerWhenReady()
+        {
+            while (!PhotonNetwork.InRoom || !PhotonNetwork.IsConnectedAndReady)
+            {
+                yield return null;
+            }
+
+            if (_isInitialized)
+            {
+                yield break;
             }
 
             var spawnPoint = GetSpawnPoint();

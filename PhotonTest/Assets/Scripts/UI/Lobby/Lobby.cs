@@ -1,6 +1,5 @@
 using Infrastructure.Loading.Scene;
 using Networking.Lobby;
-using Photon.Pun;
 using UnityEngine;
 using Zenject;
 
@@ -59,10 +58,6 @@ namespace UI.Lobby
                 if (!joinedExistingRoom)
                 {
                     await _lobbyNetwork.CreateRoomAsync();
-                }
-
-                if (PhotonNetwork.IsMasterClient)
-                {
                     _sceneLoader.Load(SceneNames.Game);
                 }
             }

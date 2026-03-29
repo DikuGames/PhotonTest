@@ -4,8 +4,7 @@
     "references": [
         "Loading",
         "Networking.Lobby",
-        "UnityEngine.UI",
-        "PhotonUnityNetworking"
+        "UnityEngine.UI"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

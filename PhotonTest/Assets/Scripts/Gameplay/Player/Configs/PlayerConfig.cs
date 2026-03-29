@@ -8,6 +8,9 @@ namespace Gameplay.Player
         [field: SerializeField]
         public GameObject PlayerPrefab { get; private set; }
 
+        [field: SerializeField]
+        public GameObject CameraPrefab { get; private set; }
+
         [field: SerializeField, Min(0f)]
         public float MoveSpeed { get; private set; } = 5f;
 

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerConfig
   m_EditorClassIdentifier: Player::Gameplay.Player.PlayerConfig
   <PlayerPrefab>k__BackingField: {fileID: 3148223079979785250, guid: 81780a96c4656124b846896d040bf3d5, type: 3}
+  <CameraPrefab>k__BackingField: {fileID: 1315198922677063978, guid: 6e07598c04872574b9a357de37988d3c, type: 3}
   <MoveSpeed>k__BackingField: 5
   <LookSensitivity>k__BackingField: 200
   <InteractionDistance>k__BackingField: 2

@@ -1,4 +1,5 @@
 using Gameplay.Artifacts;
+using Gameplay.Camera;
 using Gameplay.Player.Factory;
 using Networking.Artifacts;
 using UnityEngine;
@@ -14,8 +15,7 @@ namespace Infrastructure.Installers
         {
             BindNetworking();
             BindServices();
-            
-            Container.Bind<IPlayerFactory>().To<PhotonPlayerFactory>().AsSingle();
+            BindFactories();
         }
 
         private void BindNetworking()
@@ -27,6 +27,12 @@ namespace Infrastructure.Installers
         {
             Container.Bind<ArtifactRegistry>().FromInstance(_artifactRegistry).AsSingle();
             Container.BindInterfacesAndSelfTo<ArtifactCollectionService>().AsSingle();
+        }
+
+        private void BindFactories()
+        {
+            Container.Bind<IPlayerFactory>().To<PhotonPlayerFactory>().AsSingle();
+            Container.Bind<IPlayerCameraFactory>().To<PlayerCameraFactory>().AsSingle();
         }
     }
 }

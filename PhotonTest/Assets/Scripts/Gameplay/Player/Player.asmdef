@@ -3,6 +3,7 @@
     "rootNamespace": "",
     "references": [
         "Gameplay.Artifacts",
+        "Gameplay.Camera",
         "Gameplay.Input",
         "Networking.Artifacts",
         "PhotonUnityNetworking",

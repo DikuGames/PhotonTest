@@ -1,17 +1,9 @@
 {
-    "name": "Infrastructure.Installers",
+    "name": "Gameplay.Camera",
     "rootNamespace": "",
     "references": [
-        "Gameplay.Input",
-        "Loading",
-        "Zenject",
-        "Player",
-        "StaticData",
-        "Player.Factory",
-        "Gameplay.Artifacts",
-        "Gameplay.Camera",
-        "Networking.Artifacts",
-        "Networking.Connection"
+        "Player.Configs",
+        "StaticData"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

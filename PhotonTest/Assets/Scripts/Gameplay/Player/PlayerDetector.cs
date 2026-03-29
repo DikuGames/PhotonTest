@@ -13,31 +13,45 @@ namespace Gameplay.Player
         private MaterialPropertyBlock _propertyBlock;
         private IInputService _inputService;
         private PlayerConfig _playerConfig;
+        private bool _isSubscribedToInput;
+        private bool _isInitialized;
         private bool _isActive;
 
         public bool IsActive => _isActive;
 
-        public void Initialize(IInputService inputService, PlayerConfig playerConfig)
+        public void Initialize(PlayerConfig playerConfig)
         {
-            _inputService = inputService;
             _playerConfig = playerConfig;
+            _propertyBlock ??= new MaterialPropertyBlock();
+            _isInitialized = true;
+            UpdateColor();
+        }
+
+        public void BindInput(IInputService inputService)
+        {
+            if (_isSubscribedToInput)
+            {
+                UnbindInput();
+            }
+
+            _inputService = inputService;
             _inputService.OnDetectorActivated += Toggle;
-            
-            _propertyBlock = new MaterialPropertyBlock();
-            _detector.GetPropertyBlock(_propertyBlock);
-            SetActive(false);
+            _isSubscribedToInput = true;
         }
 
         public void SetActive(bool isActive)
         {
             _isActive = isActive;
-            UpdateColor();
+
+            if (_isInitialized)
+            {
+                UpdateColor();
+            }
         }
 
         public void Dispose()
         {
-            _inputService.OnDetectorActivated -= Toggle;
-            _inputService = null;
+            UnbindInput();
         }
 
         private void OnDestroy()
@@ -50,11 +64,25 @@ namespace Gameplay.Player
             SetActive(!_isActive);
         }
 
+        private void UnbindInput()
+        {
+            if (!_isSubscribedToInput || _inputService == null)
+            {
+                return;
+            }
+
+            _inputService.OnDetectorActivated -= Toggle;
+            _inputService = null;
+            _isSubscribedToInput = false;
+        }
+
         private void UpdateColor()
         {
             var targetColor = _isActive
                 ? _playerConfig.DetectorActiveColor
                 : _playerConfig.DetectorInactiveColor;
+
+            _detector.GetPropertyBlock(_propertyBlock);
 
             if (_detector.sharedMaterial != null && _detector.sharedMaterial.HasProperty(BaseColorId))
             {
